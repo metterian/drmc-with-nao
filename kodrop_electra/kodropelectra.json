@@ -1,0 +1,38 @@
+{
+    "dataset_reader": {
+        "type": "kodropelectra",
+        "tokenizer": {
+            "type": "kodropelectra",
+            "pretrained_model": "electra-discriminator-base"
+        },
+        "token_indexers": {
+            "tokens": {
+                "type": "kodropelectra",
+                "pretrained_model": "electra-discriminator-base"
+            }   
+        }
+    },
+    "train_data_path": "data/train150_trans2korean_confirmed2.json",
+    "validation_data_path": "data/dev15_trans2korean_after.json",
+    "model": {
+        "type": "KoDropElectra",
+        "bert_pretrained_model": "electra-discriminator-base",
+        "dropout_prob": 0.1
+    },
+    "iterator": {
+        "type": "basic",
+        "batch_size": 4
+    },
+    "trainer": {
+        "num_epochs": 30,
+        "patience": 10,
+        "validation_metric": "+f1",
+        "cuda_device": 0,
+        "optimizer": {
+            "type": "adam",
+            "lr": 1e-5
+        },
+        "summary_interval": 100,
+        "keep_serialized_model_every_num_seconds": 3600
+    }
+}

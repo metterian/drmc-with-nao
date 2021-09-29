@@ -4,9 +4,12 @@ from typing import Optional
 import uvicorn
 from pydantic import BaseModel
 
+from nao import NumericallyAugmentedElectra
 import nao
-
 app = FastAPI()
+
+config = nao.config
+model = NumericallyAugmentedElectra(config)
 
 class Item(BaseModel):
     passage: str
@@ -21,7 +24,9 @@ async def message(item: Item):
     passage = item.passage
     question = item.question
 
-    result = nao.query_sender(passage = passage, question = question)
+
+
+    result = model.query_sender(passage = passage, question = question)
     print(result)
     return JSONResponse(result)
 
